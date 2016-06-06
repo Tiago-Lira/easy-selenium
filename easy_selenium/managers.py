@@ -2,7 +2,12 @@
 
 import functools
 from contextlib import contextmanager
+from threading import local
+
 from easy_selenium import wrappers
+
+
+context = local()
 
 
 @contextmanager
@@ -22,11 +27,11 @@ def webdriver(
     browser.set_page_load_timeout(page_load_timeout)
     browser.set_script_timeout(script_timeout)
     try:
+        context.browser = browser
         yield browser
     finally:
         browser.close()
         browser.quit()
-
 
 firefox_webdriver = functools.partial(
     webdriver, webdriver=wrappers.FirefoxBrowser)
