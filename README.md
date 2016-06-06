@@ -59,12 +59,12 @@ from easy_selenium import tools
 browser = wrappers.FirefoxBrowser()
 browser.get('http://example.com/')
 
+# Use JQuery to show the element
 hidden_div = browser.find('//div[@class="hidden"]')
 tools.show_element(hidden_div)
-# Use JQuery to show the element
 
-tools.hide_element(hidden_div)
 # Use JQuery to hide the element
+tools.hide_element(hidden_div)
 
 ```
 
