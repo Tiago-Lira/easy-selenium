@@ -1,5 +1,7 @@
 ## easy-selenium
 
+[![PyPI version](https://badge.fury.io/py/easy-selenium.svg)](https://badge.fury.io/py/easy-selenium)
+
 Selenium is a wonderful tool to testing, but some actions could be simplified.
 Actions like open multiple popups and the name of certain methods would be much simplier using this package.
 However, in this package we assume that you are using XPATH always for selecting the elements on the document.
