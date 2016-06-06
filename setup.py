@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='easy-selenium',
-    version='0.1.0',
+    version='0.1.1',
     description='Tool to make the use of selenium easier',
     author='Tiago Lira',
     author_email='tiagoliradsantos@gmail.com',
