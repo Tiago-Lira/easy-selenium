@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
 
 import time
 from contextlib import contextmanager
@@ -25,7 +26,7 @@ def popup(browser, element, timeout=10):
             time_elapsed += 2
             if time_elapsed > timeout:
                 raise exceptions.TimeoutException(
-                    u'Popup doesnt open in specified time')
+                    'Popup doesnt open in specified time')
 
     browser.switch_to_window(new_window)
     yield browser

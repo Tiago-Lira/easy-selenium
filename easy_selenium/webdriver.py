@@ -1,4 +1,10 @@
-# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
+
+try:
+    import urlparse as parse
+except ImportError:
+    from urllib import parse
 
 from selenium.webdriver.support import ui
 from selenium.webdriver.common import by
@@ -19,12 +25,16 @@ class Browser(object):
             yield Element(self, el)
 
     def set_cookies(self, cookies, domain=None):
-        for key, value in cookies.iteritems():
+        for key, value in cookies.items():
             cookie = {}
             cookie['name'] = key
             cookie['value'] = value
             cookie['domain'] = domain or self.get_domain()
             self.add_cookie(cookie)
+
+    def get_domain(self):
+        parsed = parse.urlparse(self.current_url)
+        return parsed.hostname
 
     def write(self, value, xpath=None, element=None,
               verify_read_only=False, clear_before=True):
