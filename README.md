@@ -22,6 +22,8 @@ Basically, the XPATH is more easier when a website has few ids or classes in the
 from easy_selenium import wrappers
 
 browser = wrappers.FirefoxBrowser()
+browser.get('http://example.com/')
+
 with browser.open_popup('//button[@id="open_popup"]'):
     do_something()
 
@@ -33,6 +35,8 @@ with browser.open_popup('//button[@id="open_popup"]'):
 from easy_selenium import wrappers
 
 browser = wrappers.FirefoxBrowser()
+browser.get('http://example.com/')
+
 title = browser.find('//h1[@id="title"]')
 print(title.attr('text'))
 # >> Text of title
@@ -44,6 +48,25 @@ for link in links:
 
 ```
 
+##### Hide or Show elements
+
+Sometimes you want a text of a div or span with style `hidden`, but when a element is hidden the selenium webdriver "can't see" the text. So, you need to show this element:
+
+```python
+from easy_selenium import wrappers
+from easy_selenium import tools
+
+browser = wrappers.FirefoxBrowser()
+browser.get('http://example.com/')
+
+hidden_div = browser.find('//div[@class="hidden"]')
+tools.show_element(hidden_div)
+# Use JQuery to show the element
+
+tools.hide_element(hidden_div)
+# Use JQuery to hide the element
+
+```
 
 ### Installing
 
