@@ -10,14 +10,13 @@ from easy_selenium.webelement import popup
 
 class Browser(object):
 
-    def find(self, xpath, many=False):
-        if many:
-            elements = self.find_elements_by_xpath(xpath)
-            return [
-                Element(self, x) for x in elements]
-        else:
-            element = self.find_element_by_xpath(xpath)
-            return Element(self, element)
+    def find_one(self, xpath):
+        element = self.find_element_by_xpath(xpath)
+        return Element(self, element)
+
+    def find(self, xpath):
+        for el in self.find_elements_by_xpath(xpath):
+            yield Element(self, el)
 
     def set_cookies(self, cookies, domain=None):
         for key, value in cookies.iteritems():

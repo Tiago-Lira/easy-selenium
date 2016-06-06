@@ -37,12 +37,11 @@ from easy_selenium import wrappers
 browser = wrappers.FirefoxBrowser()
 browser.get('http://example.com/')
 
-title = browser.find('//h1[@id="title"]')
+title = browser.find_one('//h1[@id="title"]')
 print(title.attr('text'))
 # >> Text of title
 
-links = browser.find('//a', many=True)
-for link in links:
+for link in browser.find('//a'):
     print(link.attr('href'))
     # >> http://example.com/
 
@@ -60,7 +59,7 @@ browser = wrappers.FirefoxBrowser()
 browser.get('http://example.com/')
 
 # Use JQuery to show the element
-hidden_div = browser.find('//div[@class="hidden"]')
+hidden_div = browser.find_one('//div[@class="hidden"]')
 tools.show_element(hidden_div)
 
 # Use JQuery to hide the element
