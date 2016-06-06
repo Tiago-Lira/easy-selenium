@@ -1,14 +1,10 @@
-
 from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
 
 import functools
 from contextlib import contextmanager
-from threading import local
 
 from easy_selenium import wrappers
-
-
-context = local()
+from easy_selenium.globals import browser_context, context
 
 
 @contextmanager
@@ -27,12 +23,13 @@ def webdriver(
     browser.implicitly_wait(implicity_wait_timeout)
     browser.set_page_load_timeout(page_load_timeout)
     browser.set_script_timeout(script_timeout)
-    try:
-        context.browser = browser
-        yield browser
-    finally:
-        browser.close()
-        browser.quit()
+    with browser_context():
+        try:
+            context.browser = browser
+            yield browser
+        finally:
+            browser.close()
+            browser.quit()
 
 firefox_webdriver = functools.partial(
     webdriver, webdriver=wrappers.FirefoxBrowser)
