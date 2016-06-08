@@ -1,5 +1,5 @@
-
 from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
+import atexit
 
 try:
     import urlparse as parse
@@ -16,13 +16,17 @@ from easy_selenium.webelement import popup
 
 class Browser(object):
 
+    def __init__(self, *args, **kwargs):
+        super(Browser, self).__init__(*args, **kwargs)
+        atexit.register(self.quit)
+
     def find_one(self, xpath):
-        element = self.find_element_by_xpath(xpath)
-        return Element(self, element)
+        el = self.find_element_by_xpath(xpath)
+        return Element(el._parent, el._id, w3c=el._w3c)
 
     def find(self, xpath):
         for el in self.find_elements_by_xpath(xpath):
-            yield Element(self, el)
+            yield Element(el._parent, el._id, w3c=el._w3c)
 
     def set_cookies(self, cookies, domain=None):
         for key, value in cookies.items():
@@ -39,7 +43,8 @@ class Browser(object):
     def write(self, value, xpath=None, element=None,
               verify_read_only=False, clear_before=True):
         if xpath:
-            element = self.find(xpath)
+            element = self.find_one(xpath)
+
         return element.write(
             value, verify_read_only=verify_read_only,
             clear_before=clear_before)
@@ -56,5 +61,11 @@ class Browser(object):
         return popup(self, element, timeout=timeout)
 
     def click(self, xpath):
-        element = self.find(xpath)
+        element = self.find_one(xpath)
         return element.click()
+
+    def quit(self):
+        try:
+            return super(Browser, self).quit()
+        except ProcessLookupError:
+            pass

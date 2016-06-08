@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
 
 import time
@@ -42,37 +41,27 @@ def popup(browser, element, timeout=10):
 
 class Element(WebElement):
 
-    def __init__(self, browser, element):
-        self.browser = browser
-        self.element = element
-        self._parent = element._parent
-        self._id = element._id
-        self._w3c = element._w3c
+    def find_one(self, xpath):
+        el = self.find_element_by_xpath(xpath)
+        return self.__class__(el._parent, el._id, w3c=el._w3c)
 
-    def find(self, xpath, many=False):
-        cls = self.__class__
-        if many:
-            return [
-                cls(self.browser, x) for x in
-                self.element.find_elements_by_xpath(xpath)]
-        else:
-            el = self.element.find_element_by_xpath(xpath)
-            return cls(self.browser, el)
+    def find(self, xpath):
+        for el in self.find_elements_by_xpath(xpath):
+            yield self.__class__(el._parent, el._id, w3c=el._w3c)
 
     def write(self, value, verify_read_only=False, clear_before=True):
         if not verify_read_only:
             if clear_before:
-                self.element.clear()
-            self.element.send_keys(value)
+                self.clear()
+            self.send_keys(value)
             return True
 
         elif not self.attr('readonly'):
             if clear_before:
-                self.element.clear()
-            self.element.send_keys(value)
+                self.clear()
+            self.send_keys(value)
             return True
-
         return False
 
     def attr(self, key):
-        return self.element.get_attribute(key)
+        return self.get_attribute(key)

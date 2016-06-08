@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import, division, print_function, unicode_literals  # noqa
 
 from easy_selenium.managers import context
@@ -23,3 +22,10 @@ def hide_element(element, browser=None):
     browser.execute_script("""
         $(arguments[0]).hide();
     """, element)
+
+
+def stop_window(browser=None):
+    browser = browser or get_browser()
+    browser.execute_script("""
+        window.stop();
+    """)
