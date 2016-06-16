@@ -50,7 +50,7 @@ class Browser(object):
             clear_before=clear_before)
 
     def wait_for_element(self, xpath, timeout=10):
-        el = ui.WebDriverWait(self._driver, timeout).until(
+        el = ui.WebDriverWait(self, timeout).until(
             ec.presence_of_element_located((by.By.XPATH, xpath))
         )
         return Element(self, el)
