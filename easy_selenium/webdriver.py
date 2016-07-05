@@ -67,5 +67,5 @@ class Browser(object):
     def quit(self):
         try:
             return super(Browser, self).quit()
-        except ProcessLookupError:
+        except Exception:
             pass
