@@ -10,12 +10,13 @@ from easy_selenium.globals import browser_context, context
 @contextmanager
 def webdriver(
         webdriver,
-        window_size=None):
+        window_size=None,
+        **kwargs):
 
     if not window_size:
         window_size = (1920, 1080)
 
-    browser = webdriver()
+    browser = webdriver(**kwargs)
     browser.set_window_size(*window_size)
     with browser_context():
         try:
