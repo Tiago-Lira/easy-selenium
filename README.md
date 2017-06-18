@@ -2,18 +2,16 @@
 
 [![PyPI version](https://badge.fury.io/py/easy-selenium.svg)](https://badge.fury.io/py/easy-selenium)
 
-Selenium is a wonderful tool to testing, but some actions could be simplified.
-Actions like open multiple popups and the name of certain methods would be much simplier using this package.
-However, in this package we assume that you are using XPATH always for selecting the elements on the document.
+Selenium is a wonderful testing tool. This package aims to make easier and cleaner to write selenium scripts. However, in this package we assume that you are using XPATH always for the sake of simplicity.
 
 ### Why XPATH?
 
-First, I would like to extract a text documentation of selenium library:
+First, I would like to extract a piece of selenium's documentation:
 
 > XPath is the language used for locating nodes in an XML document. As HTML can be an implementation of XML (XHTML), Selenium users can leverage this powerful language to target elements in their web applications. XPath extends beyond (as well as supporting) the simple methods of locating by id or name attributes, and opens up all sorts of new possibilities such as locating the third checkbox on the page.
 > One of the main reasons for using XPath is when you don’t have a suitable id or name attribute for the element you wish to locate. 
 
-Basically, the XPATH is more easier when a website has few ids or classes in their HTML tags, in addition to work for any XML structure.
+Basically, the XPATH is easier when a website has few ids or classes in their HTML tags in addition to work for any XML structure.
 
 ### Example of some actions
 
